@@ -1,0 +1,10 @@
+*{ 
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+    border-radius: 25px;
+}
+
+html, body {
+    background-color: grey;
+}
