@@ -28,7 +28,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     is_leader = models.BooleanField(default=False)
     phone_number = PhoneNumberField(null=True, blank=True)
-    role = models.ManyToManyField(Role, null=True, blank=True)
+    role = models.ManyToManyField(Role, blank=True)
 
 
     def __str__(self):
