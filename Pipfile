@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-crispy-forms = "*"
+python-dotenv = "*"
+django-phonenumber-field = "*"
+django-phonenumbers = "*"
+crispy-bootstrap5 = "*"
+django-ckeditor = "==6.5.0"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
