@@ -12,6 +12,7 @@ django-phonenumbers = "*"
 crispy-bootstrap5 = "*"
 django-ckeditor = "==6.5.0"
 pillow = "*"
+babel = "*"
 
 [dev-packages]
 

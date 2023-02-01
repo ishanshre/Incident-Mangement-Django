@@ -20,6 +20,7 @@
                 <ul class="dropdown-menu">
                   {% if request.user.is_authenticated %}
                   <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
+                  <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">My Profile</a></li>
                   {% else %}
                   <li><a class="dropdown-item" href="{% url 'accounts:register' %}">Register</a></li>
                   <li><a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a></li>
