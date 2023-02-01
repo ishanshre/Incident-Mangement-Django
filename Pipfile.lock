@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fbbce9352f322c9388fe3f09aed5bc9d0384780651f288fb44c4b1383202d6ed"
+            "sha256": "0262851f79cd1f408e7ec4f3b9c3c50f0bdd1341505cdd4edd53931af2d8a2f7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==3.6.0"
+        },
+        "babel": {
+            "hashes": [
+                "sha256:1ad3eca1c885218f6dce2ab67291178944f810a10a9b5f3cb8382a5a232b64fe",
+                "sha256:5ef4b3226b0180dedded4229651c8b0e1a3a6a2837d45a073272f313e4cf97f6"
+            ],
+            "index": "pypi",
+            "version": "==2.11.0"
         },
         "crispy-bootstrap5": {
             "hashes": [
@@ -81,10 +89,10 @@
         },
         "phonenumbers": {
             "hashes": [
-                "sha256:6d63455012fc9431105ffc7739befca61c3efc551b287dca58d2be2e745475a9",
-                "sha256:a577a46c069ad889c7b7cf4dd978751d059edeab28b97acead4775d2ea1fc70a"
+                "sha256:2e3fd1f3fde226b289489275517c76edf223eafd9f43a2c2c36498a44b73d4b0",
+                "sha256:6eb2faf29c19f946baf10f1c977a1f856cab90819fe7735b8e141d5407420c4a"
             ],
-            "version": "==8.13.4"
+            "version": "==8.13.5"
         },
         "pillow": {
             "hashes": [
@@ -176,6 +184,13 @@
             ],
             "index": "pypi",
             "version": "==0.21.1"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:01a0681c4b9684a28304615eba55d1ab31ae00bf68ec157ec3708a8182dbbcd0",
+                "sha256:78f4f37d8198e0627c5f1143240bb0206b8691d8d7ac6d78fee88b78733f8c4a"
+            ],
+            "version": "==2022.7.1"
         },
         "sqlparse": {
             "hashes": [
