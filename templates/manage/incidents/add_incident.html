@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Report Incident{% endblock %}
+
+{% block body %}
+    
+    <div class="container container-mine">
+        <h1>Add New Incident</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Add" class="btn btn-outline-primary">
+        </form>
+    </div>
+{% endblock %}

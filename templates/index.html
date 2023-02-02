@@ -3,7 +3,40 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Welcome to incident management</h1>
+    <div class="container container-mine">
+        <div class="d-flex flex-row justify-content-between">
+            <h1>All Incidents</h1>
+            <button class="btn btn-outline-primary"><a href="{% url 'core:addIncident' %}">Add a Incident</a></button>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Title</th>
+                        <th>Urgency</th>
+                        <th>Triggered</th>
+                        <th>Acknoledged</th>
+                        <th>Resolved</th>
+                        <th>Created Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for incident in incidents %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{incident.title}}</td>
+                            <td>{{incident.urgency}}</td>
+                            <td>{{incident.triggered}}</td>
+                            <td>{{incident.acknowledged}}</td>
+                            <td>{{incident.resolved}}</td>
+                            <td>{{incident.created_at}}</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
