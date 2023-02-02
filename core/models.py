@@ -41,8 +41,8 @@ class Incident(models.Model):
     resolved = models.BooleanField(default=False)
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
-    reported_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="incidents")
-    asssigned_to = models.ForeignKey(Team, on_delete=models.SET_NULL, related_name="incidents", null=True)
+    reported_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="incidents", null=True, blank=True)
+    asssigned_to = models.ForeignKey(Team, on_delete=models.SET_NULL, related_name="incidents", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
