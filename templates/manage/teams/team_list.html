@@ -23,7 +23,7 @@
                     {% for team in teams %}
                         <tr>
                             <td>{{forloop.counter}}</td>
-                            <td>{{team.team_name}}</td>
+                            <td><a href="{{ team.get_absolute_url }}">{{team.team_name}}</a></td>
                             <td>{{team.on_call}}</td>
                             <td>{{team.shift_date}}</td>
                             <td>{{team.shift_end_date}}</td>

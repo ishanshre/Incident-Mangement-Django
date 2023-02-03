@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -35,3 +35,9 @@ class TeamsListView(ListView):
     model = Team
     template_name = "manage/teams/team_list.html"
     context_object_name = 'teams'
+
+
+class TeamDetailView(DetailView):
+    model = Team
+    template_name = "manage/teams/team_detail.html"
+    context_object_name = "team"

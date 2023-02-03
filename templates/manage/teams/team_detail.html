@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{{team.team_name}}{% endblock %}
+
+{% block body %}
+    
+    <div class="container container-mine d-flex justify-content-between">
+        <div class="m-3">
+            <h1>Team Name: {{team.team_name}}</h1>
+            <p>Description: {{team.team_description}}</p>
+            <p>On Call: {{team.on_call}}</p>
+            <p>Shift Date: {{team.shift_date}}</p>
+            <p>Shift End Date: {{team.shift_end_date}}</p>
+            <h2>Team Members</h2>
+            <ul>
+                {% for member in team.members.all %}
+                    <li>@{{member.profile.user.username}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="m-3">
+            <h1>Leader: @{{team.leader.user.username}}</h1>
+            <img src="{{team.leader.avatar.url}}" alt="profile" width="300px" height="300px">
+        </div>
+    </div>
+{% endblock %}
