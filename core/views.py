@@ -3,10 +3,11 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 
 from django.contrib.messages.views import SuccessMessageMixin
 
-from core.models import Incident
+from core.models import Incident, Team
 from core.forms import AddIncidentForm
 # Create your views here.
 def index(request):
@@ -28,3 +29,9 @@ class AddIncidentView(SuccessMessageMixin,CreateView):
             form.instance.reported_by = self.request.user.profile
             form.instance.save()
         return super().form_valid(form)
+
+
+class TeamsListView(ListView):
+    model = Team
+    template_name = "manage/teams/team_list.html"
+    context_object_name = 'teams'
