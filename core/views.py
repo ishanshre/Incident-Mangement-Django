@@ -18,6 +18,12 @@ def index(request):
     return render(request, "index.html", context)
 
 
+class IncidentDetailView(DetailView):
+    model = Incident
+    template_name = 'manage/incidents/detail_incident.html'
+    context_object_name = "incident"
+
+
 class AddIncidentView(SuccessMessageMixin,CreateView):
     form_class = AddIncidentForm
     template_name = "manage/incidents/add_incident.html"
