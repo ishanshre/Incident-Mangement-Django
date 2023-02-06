@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -35,6 +35,12 @@ class AddIncidentView(SuccessMessageMixin,CreateView):
             form.instance.reported_by = self.request.user.profile
             form.instance.save()
         return super().form_valid(form)
+
+class IncidentDeleteView(SuccessMessageMixin, DeleteView):
+    model = Incident
+    template_name = "manage/incidents/delete_incident.html"
+    success_url = reverse_lazy("core:index")
+    success_message = "Incident Deleted Successfully"
 
 
 class TeamsListView(ListView):

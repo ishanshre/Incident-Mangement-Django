@@ -32,7 +32,7 @@
                             <td>{{incident.acknowledged}}</td>
                             <td>{{incident.resolved}}</td>
                             <td>{{incident.created_at}}</td>
-                            <td><button>Delete</button></td>
+                            <td><button class="btn btn-warning"><a href="{% url 'core:deleteIncident' incident.pk %}">Delete</a></button></td>
                         </tr>
                     {% endfor %}
                 </tbody>
