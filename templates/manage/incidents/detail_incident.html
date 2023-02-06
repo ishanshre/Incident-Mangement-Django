@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{{incident.title}}{% endblock %}
+
+{% block body %}
+    
+    <div class="container container-mine">
+        <h1>Incident: {{incident.title}}</h1>
+        <strong>Description:</strong>
+        <p>{{incident.description}}</p>
+        <div class="row">
+            <div class="col-6 col-md-6">
+                <p><strong>Urgency Level: </strong>{{incident.urgency}}</p>
+                <p><strong>reported by:</strong>{{ incident.reported_by }}</p>
+                <p><strong>Created At: </strong>{{incident.created_at|timesince}} ago</p>
+                <p><strong>Updated At: </strong>{{incident.updated_at|timesince}} ago</p>
+            </div>
+            <div class="col-6 col-md-6">
+                <p><strong>Assigned To: {{incident.assigned_to}}</strong></p>
+                <p><strong>Triggered: {{incident.triggered}}</strong></p>
+                <p><strong>Acknowledged: {{incident.acknowledged}}</strong></p>
+                <p><strong>Resolved: {{incident.resolved}}</strong></p>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Teams{% endblock %}
+
+{% block body %}
+    
+    <div class="container container-mine">
+        <h1>Team List</h1>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Name</th>
+                        <th>On call</th>
+                        <th>Shift Date</th>
+                        <th>Shift End Date</th>
+                        <th>Leader</th>
+                        <th>Total Members</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for team in teams %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="{{ team.get_absolute_url }}">{{team.team_name}}</a></td>
+                            <td>{{team.on_call}}</td>
+                            <td>{{team.shift_date}}</td>
+                            <td>{{team.shift_end_date}}</td>
+                            <td>@{{team.leader.user.username|title}}</td>
+                            <td>{{team.members.all|length}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,8 @@
 """
 from django.db import models
 
+from django.urls import reverse
+
 
 from accounts.models import Profile
 
@@ -18,7 +20,9 @@ class Team(models.Model):
     leader = models.ForeignKey(Profile, on_delete=models.SET_NULL, related_name="team_leader", null=True)
     def __str__(self):
         return f"{self.team_name} lead by {self.leader.user.username.title()}"
-
+    
+    def get_absolute_url(self):
+        return reverse("core:teamDetail", args=[self.id])
 
 class TeamMember(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="members")
@@ -42,9 +46,12 @@ class Incident(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
     reported_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="incidents", null=True, blank=True)
-    asssigned_to = models.ForeignKey(Team, on_delete=models.SET_NULL, related_name="incidents", null=True, blank=True)
+    assigned_to = models.ForeignKey(Team, on_delete=models.SET_NULL, related_name="incidents", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.title} :- reported by {self.reported_by.user.username}"
+    
+    def get_absolute_url(self):
+        return reverse("core:detailIncident", args=[self.id])
