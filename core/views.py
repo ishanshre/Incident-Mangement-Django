@@ -1,14 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.urls import reverse_lazy
 
+from django.views import View
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, DeleteView
 
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
 from core.models import Incident, Team
-from core.forms import AddIncidentForm
+from core.forms import AddIncidentForm, AssignIncidentForm
 # Create your views here.
 def index(request):
     incidents = Incident.objects.all()
@@ -18,10 +20,29 @@ def index(request):
     return render(request, "index.html", context)
 
 
-class IncidentDetailView(DetailView):
-    model = Incident
+class IncidentDetailView(View):
     template_name = 'manage/incidents/detail_incident.html'
-    context_object_name = "incident"
+    def get(self,request, *args, **kwargs):
+        incident = get_object_or_404(Incident, id=self.kwargs['pk'])
+        assign_incident_form = AssignIncidentForm(instance=incident)
+        context = {
+            'incident':incident,
+            'assign_incident_form':assign_incident_form,
+        }
+        return render(request, self.template_name, context)
+    
+    def post(self, request, *args, **kwargs):
+        incident = get_object_or_404(Incident, id=self.kwargs['pk'])
+        assign_incident_form = AssignIncidentForm(request.POST, instance=incident)
+        if assign_incident_form.is_valid():
+            assign_incident_form.save()
+            messages.success(request, "Successfull assigned incident to the team")
+            return redirect("core:detailIncident", pk=incident.pk)
+        context = {
+            'incident':incident,
+            'assign_incident_form':assign_incident_form,
+        }
+        return render(request, self.template_name, context)
 
 
 class AddIncidentView(SuccessMessageMixin,CreateView):

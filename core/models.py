@@ -51,7 +51,7 @@ class Incident(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title} :- reported by {self.reported_by.user.username}"
+        return f"{self.title}"
     
     def get_absolute_url(self):
         return reverse("core:detailIncident", args=[self.id])

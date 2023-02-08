@@ -12,3 +12,9 @@ class AddIncidentForm(forms.ModelForm):
             'acknowledged',
             'description',
         ]
+
+
+class AssignIncidentForm(forms.ModelForm):
+    class Meta:
+        model = Incident
+        fields = ["assigned_to",]
