@@ -13,7 +13,8 @@ from core.models import Incident, Team
 from core.forms import (
     AddIncidentForm,
     AssignIncidentForm, 
-    UpdateTeamDetail
+    UpdateTeamDetail,
+    AddNewTeamMember,
 )
 # Create your views here.
 def index(request):
@@ -79,20 +80,34 @@ class TeamDetailView(View):
     def get(self, request, *args, **kwargs):
         team = get_object_or_404(Team, id=self.kwargs['pk'])
         update_detail = UpdateTeamDetail(instance=team)
+        add_member = AddNewTeamMember()
         context = {
             'team':team,
             'update_detail':update_detail,
+            'add_member':add_member,
         }
         return render(request, self.template_name, context)
     def post(self, request, *args, **kwargs):
         team = get_object_or_404(Team, id=self.kwargs['pk'])
-        update_detail = UpdateTeamDetail(request.POST, instance=team)
-        if update_detail.is_valid():
-            update_detail.save()
-            messages.success(request, "Team Detail Updated Successfully")
-            return redirect('core:teamDetail', pk=team.pk)
+        update_detail = UpdateTeamDetail(instance=team)
+        add_member = AddNewTeamMember()
+        if 'update_detail' in request.POST:
+            update_detail = UpdateTeamDetail(request.POST, instance=team)
+            if update_detail.is_valid():
+                update_detail.save()
+                messages.success(request, "Team Detail Updated Successfully")
+                return redirect('core:teamDetail', pk=team.pk)
+        if 'add_member' in request.POST:
+            add_member = AddNewTeamMember(request.POST)
+            if add_member.is_valid():
+                add_member.save(commit=False)
+                add_member.instance.team = team
+                add_member.save()
+                messages.success(request, "New Member added into the Team")
+                return redirect("core:teamDetail", pk=team.pk)
         context = {
             'team':team,
             'update_detail':update_detail,
+            'add_member':add_member,
         }
         return render(request, self.template_name, context)

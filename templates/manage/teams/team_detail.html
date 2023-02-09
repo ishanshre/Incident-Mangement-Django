@@ -21,6 +21,9 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Update
                 </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    Add Members
+                </button>
             </div>
             <div class="m-3">
                 <h1>Leader: @{{team.leader.user.username}}</h1>
@@ -48,6 +51,24 @@
                 </div>
                 <div class="modal-footer">
                 
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel2">Add New Team Members</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{add_member|crispy}}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
                 </div>
             </div>
             </div>

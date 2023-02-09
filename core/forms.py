@@ -1,6 +1,6 @@
 from django import forms
 
-from core.models import Incident, Team
+from core.models import Incident, Team, TeamMember
 
 class AddIncidentForm(forms.ModelForm):
     class Meta:
@@ -21,6 +21,7 @@ class AssignIncidentForm(forms.ModelForm):
 
 
 class UpdateTeamDetail(forms.ModelForm):
+    update_detail = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = Team
         fields = [
@@ -31,3 +32,16 @@ class UpdateTeamDetail(forms.ModelForm):
             'shift_end_date',
             'leader',
         ]
+
+
+
+class AddNewTeamMember(forms.ModelForm):
+    add_member = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    class Meta:
+        model = TeamMember
+        fields = [
+            'profile'
+        ]
+        labels = {
+            'profile':'Member'
+        }
