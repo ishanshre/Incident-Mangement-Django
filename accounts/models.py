@@ -20,6 +20,9 @@ class GENDER_CHOICES(models.TextChoices):
 class Role(models.Model):
     role = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.role
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")

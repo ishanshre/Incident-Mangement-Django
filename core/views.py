@@ -10,7 +10,11 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
 from core.models import Incident, Team
-from core.forms import AddIncidentForm, AssignIncidentForm
+from core.forms import (
+    AddIncidentForm,
+    AssignIncidentForm, 
+    UpdateTeamDetail
+)
 # Create your views here.
 def index(request):
     incidents = Incident.objects.all()
@@ -70,7 +74,25 @@ class TeamsListView(ListView):
     context_object_name = 'teams'
 
 
-class TeamDetailView(DetailView):
-    model = Team
+class TeamDetailView(View):
     template_name = "manage/teams/team_detail.html"
-    context_object_name = "team"
+    def get(self, request, *args, **kwargs):
+        team = get_object_or_404(Team, id=self.kwargs['pk'])
+        update_detail = UpdateTeamDetail(instance=team)
+        context = {
+            'team':team,
+            'update_detail':update_detail,
+        }
+        return render(request, self.template_name, context)
+    def post(self, request, *args, **kwargs):
+        team = get_object_or_404(Team, id=self.kwargs['pk'])
+        update_detail = UpdateTeamDetail(request.POST, instance=team)
+        if update_detail.is_valid():
+            update_detail.save()
+            messages.success(request, "Team Detail Updated Successfully")
+            return redirect('core:teamDetail', pk=team.pk)
+        context = {
+            'team':team,
+            'update_detail':update_detail,
+        }
+        return render(request, self.template_name, context)

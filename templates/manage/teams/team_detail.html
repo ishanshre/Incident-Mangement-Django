@@ -4,23 +4,54 @@
 
 {% block body %}
     
-    <div class="container container-mine d-flex justify-content-between">
-        <div class="m-3">
-            <h1>Team Name: {{team.team_name}}</h1>
-            <p>Description: {{team.team_description}}</p>
-            <p>On Call: {{team.on_call}}</p>
-            <p>Shift Date: {{team.shift_date}}</p>
-            <p>Shift End Date: {{team.shift_end_date}}</p>
-            <h2>Team Members</h2>
-            <ul>
-                {% for member in team.members.all %}
-                    <li>@{{member.profile.user.username}}</li>
-                {% endfor %}
-            </ul>
+    <div>
+        <div class="container container-mine d-flex justify-content-between">
+            <div class="m-3">
+                <h1>Team Name: {{team.team_name}}</h1>
+                <p>Description: {{team.team_description}}</p>
+                <p>On Call: {{team.on_call}}</p>
+                <p>Shift Date: {{team.shift_date}}</p>
+                <p>Shift End Date: {{team.shift_end_date}}</p>
+                <h2>Team Members</h2>
+                <ul>
+                    {% for member in team.members.all %}
+                        <li>@{{member.profile.user.username}}</li>
+                    {% endfor %}
+                </ul>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Update
+                </button>
+            </div>
+            <div class="m-3">
+                <h1>Leader: @{{team.leader.user.username}}</h1>
+                <img src="{{team.leader.avatar.url}}" alt="profile" width="300px" height="300px">
+            </div>
         </div>
-        <div class="m-3">
-            <h1>Leader: @{{team.leader.user.username}}</h1>
-            <img src="{{team.leader.avatar.url}}" alt="profile" width="300px" height="300px">
+        <!-- Button trigger modal -->
+        
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Update Team Detail</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{update_detail|crispy}}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+                </div>
+                <div class="modal-footer">
+                
+                </div>
+            </div>
+            </div>
         </div>
     </div>
+
 {% endblock %}

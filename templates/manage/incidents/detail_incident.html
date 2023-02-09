@@ -16,7 +16,7 @@
                 <p><strong>Updated At: </strong>{{incident.updated_at|timesince}} ago</p>
             </div>
             <div class="col-6 col-md-6">
-                <p><strong>Assigned To: {{incident.assigned_to}} 
+                <p><strong>Assigned To: <a href="{{incident.assigned_to.get_absolute_url}}">{{incident.assigned_to}}</a>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Assign
                 </button>
