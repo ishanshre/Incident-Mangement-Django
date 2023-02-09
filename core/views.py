@@ -70,7 +70,11 @@ class TeamsListView(ListView):
     context_object_name = 'teams'
 
 
-class TeamDetailView(DetailView):
-    model = Team
+class TeamDetailView(View):
     template_name = "manage/teams/team_detail.html"
-    context_object_name = "team"
+    def get(self, request, *args, **kwargs):
+        team = get_object_or_404(Team, id=self.kwargs['pk'])
+        context = {
+            'team':team,
+        }
+        return render(request, self.template_name, context)
