@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import CreateView
+
+from django.views.generic import CreateView, DetailView
 from django.views import View
 
 
@@ -76,5 +77,16 @@ class ProfileDetailAndUpdateView(LoginRequiredMixin, View):
             "profile":profile,
             "profile_form":profile_form,
             "user_form":user_form,
+        }
+        return render(request, self.template_name, context)
+
+
+class ProfileView(View):
+    template_name = "accounts/profile_view.html"
+    def get(self, request, *args, **kwargs):
+        username = self.kwargs['username']
+        profile = Profile.objects.get(user__username=username)
+        context = {
+            'profile':profile,
         }
         return render(request, self.template_name, context)
