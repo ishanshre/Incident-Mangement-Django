@@ -14,7 +14,12 @@
                 <p><strong>Gender: </strong>{{ profile.gender }}</p>
                 <p><strong>Date of Birth: </strong>{{ profile.date_of_birth }}</p>
                 <p><strong>Phone: </strong>{{ profile.phone_number }}</p>
-                <p><strong>Role: </strong>{{ profile.role }}</p>
+                <p><strong>Role: </strong></p>
+                <ul>
+                    {% for role in profile.role.all %}
+                        <li>{{role}}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="col-8 col-md-8">
                 <form method="post" enctype="multipart/form-data">

@@ -26,8 +26,15 @@
                 </button>
             </div>
             <div class="m-3">
-                <h1>Leader: @{{team.leader.user.username}}</h1>
                 <img src="{{team.leader.avatar.url}}" alt="profile" width="300px" height="300px">
+                <h1>Leader: @{{team.leader.user.username}}</h1>
+                <p>Email : {{team.leader.user.email}}</p>
+                <p>Roles</p>
+                <ul>
+                    {% for role in team.leader.role.all %}
+                        <li>{{role}}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
         <!-- Button trigger modal -->
