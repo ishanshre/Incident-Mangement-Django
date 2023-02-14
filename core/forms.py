@@ -15,10 +15,17 @@ class AddIncidentForm(forms.ModelForm):
 
 
 class AssignIncidentForm(forms.ModelForm):
+    assign_incident = forms.BooleanField(widget=forms.HiddenInput)
     class Meta:
         model = Incident
         fields = ["assigned_to",]
 
+
+class IncidentStatusUpdateForm(forms.ModelForm):
+    status_update = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    class Meta:
+        model = Incident
+        fields = ['acknowledged','resolved']
 
 class UpdateTeamDetail(forms.ModelForm):
     update_detail = forms.BooleanField(widget=forms.HiddenInput, initial=True)

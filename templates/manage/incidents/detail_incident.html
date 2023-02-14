@@ -14,12 +14,17 @@
                 <p><strong>reported by:</strong>{{ incident.reported_by }}</p>
                 <p><strong>Created At: </strong>{{incident.created_at|timesince}} ago</p>
                 <p><strong>Updated At: </strong>{{incident.updated_at|timesince}} ago</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                    Update Status
+                    </button>
             </div>
             <div class="col-6 col-md-6">
                 <p><strong>Assigned To: <a href="{{incident.assigned_to.get_absolute_url}}">{{incident.assigned_to}}</a>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Assign
-                </button>
+                    </button>
+                    {% endif %}
                 </strong></p>
                 <p><strong>Triggered: {{incident.triggered}}</strong></p>
                 <p><strong>Acknowledged: {{incident.acknowledged}}</strong></p>
@@ -40,6 +45,26 @@
                             {% csrf_token %}
                             {{assign_incident_form|crispy}}
                             <input type="submit" value="Assign to" class="btn btn-outline-primary">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Modal for udpating status-->
+            <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="updateStatusModalLabel">Assign this incident to</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method = "post">
+                            {% csrf_token %}
+                            {{update_status_form|crispy}}
+                            <input type="submit" value="Update Status" class="btn btn-outline-primary">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </form>
                     </div>

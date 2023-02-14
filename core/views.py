@@ -13,6 +13,7 @@ from core.models import Incident, Team
 from core.forms import (
     AddIncidentForm,
     AssignIncidentForm, 
+    IncidentStatusUpdateForm,
     UpdateTeamDetail,
     AddNewTeamMember,
 )
@@ -30,22 +31,34 @@ class IncidentDetailView(View):
     def get(self,request, *args, **kwargs):
         incident = get_object_or_404(Incident, id=self.kwargs['pk'])
         assign_incident_form = AssignIncidentForm(instance=incident)
+        update_status_form = IncidentStatusUpdateForm(instance=incident)
         context = {
             'incident':incident,
             'assign_incident_form':assign_incident_form,
+            'update_status_form':update_status_form,
         }
         return render(request, self.template_name, context)
     
     def post(self, request, *args, **kwargs):
         incident = get_object_or_404(Incident, id=self.kwargs['pk'])
-        assign_incident_form = AssignIncidentForm(request.POST, instance=incident)
-        if assign_incident_form.is_valid():
-            assign_incident_form.save()
-            messages.success(request, "Successfull assigned incident to the team")
-            return redirect("core:detailIncident", pk=incident.pk)
+        assign_incident_form = AssignIncidentForm(instance=incident)
+        update_status_form = IncidentStatusUpdateForm(instance=incident)
+        if "assign_incident" in request.POST:
+            assign_incident_form = AssignIncidentForm(request.POST, instance=incident)
+            if assign_incident_form.is_valid():
+                assign_incident_form.save()
+                messages.success(request, "Successfull assigned incident to the team")
+                return redirect("core:detailIncident", pk=incident.pk)
+        if "status_update" in request.POST:
+            update_status_form = IncidentStatusUpdateForm(request.POST, instance=incident)
+            if update_status_form.is_valid():
+                update_status_form.save()
+                messages.success(request, "Incident Status Successfully updated")
+                return redirect("core:detailIncident", pk=incident.pk)
         context = {
             'incident':incident,
             'assign_incident_form':assign_incident_form,
+            'update_status_form':update_status_form,
         }
         return render(request, self.template_name, context)
 
