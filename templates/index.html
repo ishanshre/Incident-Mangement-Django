@@ -32,7 +32,9 @@
                             <td>{{incident.acknowledged}}</td>
                             <td>{{incident.resolved}}</td>
                             <td>{{incident.created_at}}</td>
+                            {% if request.user.is_authenticated and request.user.is_staff %}
                             <td><button class="btn btn-warning"><a href="{% url 'core:deleteIncident' incident.pk %}">Delete</a></button></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

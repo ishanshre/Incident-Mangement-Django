@@ -17,9 +17,11 @@
             </div>
             <div class="col-6 col-md-6">
                 <p><strong>Assigned To: <a href="{{incident.assigned_to.get_absolute_url}}">{{incident.assigned_to}}</a>
+                    {% if request.user.is_authenticated and request.user.is_staff %}
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Assign
-                </button>
+                    </button>
+                    {% endif %}
                 </strong></p>
                 <p><strong>Triggered: {{incident.triggered}}</strong></p>
                 <p><strong>Acknowledged: {{incident.acknowledged}}</strong></p>
